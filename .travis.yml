@@ -1,0 +1,17 @@
+language: generic
+dist: xenial
+sudo: required
+services:
+- docker
+install:
+- docker system info
+script:
+  - docker build -t nugulinux/devenv:tizencli .
+before_deploy:
+  - docker images
+  - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+deploy:
+  provider: script
+  script: docker push nugulinux/devenv:tizencli
+  on:
+    branch: cli

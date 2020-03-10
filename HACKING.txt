@@ -1,0 +1,93 @@
+# Package list information
+#   http://download.tizen.org/sdk/tizenstudio/official/pkg_list_ubuntu-64
+
+ENV STUDIOURL=http://download.tizen.org/sdk/tizenstudio/official
+
+# Package: COMMON-MANDATORY
+# Install-dependency:
+#   sdk-info, sdb, package-manager, package-manager-cli, sdk-utils, sdk-utils-core, device-manager-product
+# Files:
+#   ${STUDIOURL}/binary/sdk-info_2.5.0_ubuntu-64.zip
+#   ${STUDIOURL}/binary/sdb_4.2.11_ubuntu-64.zip
+#   ${STUDIOURL}/binary/package-manager_0.5.4_ubuntu-64.zip
+#   ${STUDIOURL}/binary/package-manager-cli_0.5.4_ubuntu-64.zip
+#   ${STUDIOURL}/binary/sdk-utils_0.2.1_ubuntu-64.zip
+#   ${STUDIOURL}/binary/sdk-utils-core_0.2.1_ubuntu-64.zip
+#   ${STUDIOURL}/binary/device-manager-product_1.2.8_ubuntu-64.zip
+#
+# Comment: Already installed to Tizen Studio 3.6.
+
+# Package: 4.0-MANDATORY
+# Install-dependency:
+#   COMMON-MANDATORY,
+#   4.0-platform-info
+# Files:
+#   ${STUDIOURL}/binary/COMMON-MANDATORY_2.7.1_ubuntu-64.zip
+#   ${STUDIOURL}/binary/4.0-platform-info_4.1.0_ubuntu-64.zip
+#
+# Comment: Empty packages.
+
+# Package: MOBILE-4.0-NativeAppDevelopment-CLI
+# Install-dependency:
+#   4.0-MANDATORY,
+#   mobile-4.0-core-add-ons,
+#   mobile-4.0-rs-device.core,
+#   mobile-4.0-rs-emulator.core,
+#   4.0-efl-tools
+# Files:
+#   ${STUDIOURL}/binary/MOBILE-4.0-NativeAppDevelopment-CLI_0.2.1_ubuntu-64.zip
+#   ${STUDIOURL}/binary/mobile-4.0-core-add-ons_0.0.171_ubuntu-64.zip
+#   ${STUDIOURL}/binary/mobile-4.0-rs-device.core_0.0.64_ubuntu-64.zip
+#   ${STUDIOURL}/binary/mobile-4.0-rs-emulator.core_0.0.64_ubuntu-64.zip
+#   ${STUDIOURL}/binary/4.0-efl-tools_1.16.8_ubuntu-64.zip
+#
+# Comment:
+#   MOBILE-4.0-NativeAppDevelopment-CLI_0.2.1_ubuntu-64.zip is empty package.
+#   efl-tools is not needed.
+
+RUN mkdir tmp \
+    && wget ${STUDIOURL}/binary/mobile-4.0-core-add-ons_0.0.171_ubuntu-64.zip -P tmp/ \
+    && cd tmp && unzip *.zip && cp -a data/* ~/tizen-studio/ && rm -rf * && cd .. \
+    && wget ${STUDIOURL}/binary/mobile-4.0-rs-device.core_0.0.64_ubuntu-64.zip -P tmp/ \
+    && cd tmp && unzip *.zip && cp -a data/* ~/tizen-studio/ && rm -rf * && cd .. \
+    && wget ${STUDIOURL}/binary/mobile-4.0-rs-emulator.core_0.0.64_ubuntu-64.zip -P tmp/ \
+    && cd tmp && unzip *.zip && cp -a data/* ~/tizen-studio/ && rm -rf * && cd .. \
+    && rmdir tmp
+
+-----------------------------------------------------------------------------
+
+# Package : MOBILE-4.0-Emulator
+# 4.0-MANDATORY,
+# mobile-4.0-emulator-image-x86,
+# mobile-4.0-emulator-manager-resources,
+# mobile-4.0-emulator-control-panel-devices,
+# COMMON-4.0-Emulator
+
+
+# ${STUDIOURL}/binary/COMMON-4.0-Emulator_0.2.1_ubuntu-64.zip
+# Install-dependency : 4.0-emulator-qemu-common, 4.0-emulator-qemu-x86, 4.0-emulator-lib
+
+
+# ${STUDIOURL}/binary/4.0-emulator-lib_1.6.0_ubuntu-64.zip
+# ${STUDIOURL}/binary/4.0-emulator-qemu-x86_2.8.0.24_ubuntu-64.zip
+# ${STUDIOURL}/binary/4.0-emulator-qemu-common_2.8.0.24_ubuntu-64.zip
+
+
+# ${STUDIOURL}/binary/NativeCLI_2.7.1_ubuntu-64.zip
+# COMMON-MANDATORY, COMMON-CLI, COMMON-NATIVE-TOOLCHAIN, new-native-cli
+
+
+# COMMON-CLI
+# Package : new-common-cli
+# ${STUDIOURL}/binary/new-common-cli_2.5.16_ubuntu-64.zip
+# Install-dependency : sdb [ubuntu-64], certificate-generator [ubuntu-64], certificate-encryptor [ubuntu-64]
+# Build-dependency : base-ide-product [ubuntu-64], common-eplugin [ubuntu-64], webapp-eplugin [ubuntu-64]
+
+# Package : new-native-cli
+# ${STUDIOURL}/binary/new-native-cli_2.5.16_ubuntu-64.zip
+# Install-dependency : new-common-cli [ubuntu-64], sbilib [ubuntu-64], tpklib [ubuntu-64]
+# Build-dependency : nativecommon-eplugin [ubuntu-64], base-ide-product [ubuntu-64], common-eplugin [ubuntu-64], nativecore-eplugin [ubuntu-64], nativecore-ext-eplugin [ubuntu-64], tpklib [ubuntu-64]
+
+# Package : COMMON-NATIVE-TOOLCHAIN
+# ${STUDIOURL}/binary/COMMON-NATIVE-TOOLCHAIN_2.7.1_ubuntu-64.zip
+# Install-dependency : smart-build-interface
