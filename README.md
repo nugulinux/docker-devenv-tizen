@@ -1,5 +1,55 @@
 # NUGU SDK for tizen development environment
 
+## Docker images for tizen build
+
+### nugulinux/devenv:tizenbase
+
+    docker pull nugulinux/devenv:tizenbase
+
+* Branch: [base](https://github.com/nugulinux/docker-devenv-tizen/tree/base)
+* Inherited nugulinux/devenv:bionic
+* Installed files
+  * web-cli_Tizen_Studio_3.6_ubuntu-64.bin
+
+### nugulinux/devenv:tizencli
+
+    docker pull nugulinux/devenv:tizencli
+
+* Branch: [cli](https://github.com/nugulinux/docker-devenv-tizen/tree/cli)
+* Inherited nugulinux/devenv:tizenbase
+* Installed files
+  * MOBILE-4.0-NativeAppDevelopment-CLI using package-manager
+
+### nugulinux/devenv:tizen
+
+    docker pull nugulinux/devenv:tizen
+
+* Branch: [tizen](https://github.com/nugulinux/docker-devenv-tizen/tree/tizen)
+* Inherited nugulinux/devenv:tizencli
+* Installed files
+  * CMake workaround patches
+  * Emulator cross-compile settings
+
+## Build with CMake
+
+### Prepare container
+
+Download the pre-configured docker image
+
+    docker pull nugulinux/devenv:tizen
+
+Create and run a container
+
+    docker run -it --rm nugulinux/devenv:tizen
+    work@3bc6c74c10bc:~$
+
+### Build using CMake
+
+    $ cd myproject
+    $ mkdir build && cd build
+    $ cmake .. -DCMAKE_TOOLCHAIN_FILE=~/Toolchain.cmake
+    $ make
+
 ## Build test with native-project template
 
 ### Prepare container
