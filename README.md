@@ -1,25 +1,33 @@
 # NUGU SDK for tizen development environment
 
-## Build test
+## Build test with native-project template
 
-Download preconfigured docker image
+### Prepare container
+
+Download the pre-configured docker image
 
     docker pull nugulinux/devenv:tizencli
 
-Run
+Create and run a container
 
     docker run -it --rm nugulinux/devenv:tizencli
     work@3bc6c74c10bc:~$
     
-Create sample native project
+### Create a sample native project
 
     $ tizen create native-project -p mobile-4.0 -t ServiceApp -n servicetest -- ~/workspace/
 
-Build the project
+### Build the project
+
+x86 emulator
 
     $ tizen build-native -a x86 -c gcc -C Debug -- ~/workspace/servicetest
 
-Buiild result
+arm
+
+    $ tizen build-native -a arm -c gcc -C Debug -- ~/workspace/servicetest
+    
+### Build result
 
     $ ls -l ~/workspace/servicetest/Debug/
     total 52
