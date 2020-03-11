@@ -1,24 +1,14 @@
 FROM nugulinux/devenv:tizencli
 
 # Cross compile configuration for Emulator
-ENV CROSS_TRIPLE=i586-linux-gnueabi \
-    CROSS_ROOT=/home/work/tizen-studio/tools/i586-linux-gnueabi-gcc-6.2 \
-    CROSS_SYSROOT=/home/work/tizen-studio/platforms/tizen-4.0/mobile/rootstraps/mobile-4.0-emulator.core \
-    ARCH=i386
-
-ENV PATH=$CROSS_ROOT/bin:$PATH
-
-ENV AS=${CROSS_TRIPLE}-as \
-    AR=${CROSS_TRIPLE}-ar \
-    CC=${CROSS_TRIPLE}-gcc \
-    CPP=${CROSS_TRIPLE}-cpp \
-    CXX=${CROSS_TRIPLE}-g++ \
-    LD=${CROSS_TRIPLE}-ld \
-    STRIP=${CROSS_TRIPLE}-strip \
-    RANLIB=${CROSS_TRIPLE}-ranlib \
-    CROSS_COMPILE=${CROSS_TRIPLE}- \
-    PKG_CONFIG_LIBDIR=${CROSS_SYSROOT}/usr/lib/pkgconfig \
-    PKG_CONFIG_SYSROOT_DIR=${CROSS_SYSROOT}
+ENV EMULATOR_TOOLCHAIN=/home/work/tizen-studio/tools/i586-linux-gnueabi-gcc-6.2 \
+    EMULATOR_SYSROOT=/home/work/tizen-studio/platforms/tizen-4.0/mobile/rootstraps/mobile-4.0-emulator.core \
+    EMULATOR_TRIPLE=i586-linux-gnueabi \
+    EMULATOR_ARCH=i386 \
+    DEVICE_TOOLCHAIN=/home/work/tizen-studio/tools/arm-linux-gnueabi-gcc-6.2 \
+    DEVICE_SYSROOT=/home/work/tizen-studio/platforms/tizen-4.0/mobile/rootstraps/mobile-4.0-device.core \
+    DEVICE_TRIPLE=arm-linux-gnueabi \
+    DEVICE_ARCH=armel
 
 # Workaround to fix permission error for default sysroot in i586-linux-gnueabi-gcc-6.2
 #  $ i586-linux-gnueabi-gcc -print-sysroot
@@ -26,8 +16,10 @@ ENV AS=${CROSS_TRIPLE}-as \
 RUN sudo chmod 755 /root
 
 # Remove 'Requires.private' and 'Libs.private' in the glib-2.0.pc
-RUN sed -i '/Requires.private: libpcre/d' $CROSS_SYSROOT/usr/lib/pkgconfig/glib-2.0.pc \
-    && sed -i '/Libs.private: -pthread  -lpcre/d' $CROSS_SYSROOT/usr/lib/pkgconfig/glib-2.0.pc
+RUN sed -i '/Requires.private: libpcre/d' $EMULATOR_SYSROOT/usr/lib/pkgconfig/glib-2.0.pc \
+    && sed -i '/Libs.private: -pthread  -lpcre/d' $EMULATOR_SYSROOT/usr/lib/pkgconfig/glib-2.0.pc \
+    && sed -i '/Requires.private: libpcre/d' $DEVICE_SYSROOT/usr/lib/pkgconfig/glib-2.0.pc \
+    && sed -i '/Libs.private: -pthread  -lpcre/d' $DEVICE_SYSROOT/usr/lib/pkgconfig/glib-2.0.pc
 
-COPY Toolchain.cmake /home/work/
+COPY Toolchain.cmake emulator.env device.env /home/work/
 RUN echo alias cmake=\"cmake -DCMAKE_TOOLCHAIN_FILE=/home/work/Toolchain.cmake\" >> ~/.bashrc
