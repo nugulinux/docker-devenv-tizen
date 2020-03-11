@@ -1,38 +1,52 @@
 # NUGU SDK for tizen development environment
 
+- [Docker images for tizen build](#docker-images-for-tizen-build)
+  - [nugulinux/devenv:tizenbase](#nugulinuxdevenvtizenbase)
+  - [nugulinux/devenv:tizencli](#nugulinuxdevenvtizencli)
+  - [nugulinux/devenv:tizen](#nugulinuxdevenvtizen)
+- [Build with CMake](#build-with-cmake)
+  - [Prepare tizen docker](#prepare-tizen-docker)
+  - [Select build target](#select-build-target)
+  - [Build using CMake](#build-using-cmake)
+- [Build with Tizen native-project template](#build-with-tizen-native-project-template)
+  - [Prepare tizencli docker](#prepare-tizencli-docker)
+  - [Create a sample native project](#create-a-sample-native-project)
+  - [Build the project](#build-the-project)
+  - [Build result](#build-result)
+
 ## Docker images for tizen build
 
 ### nugulinux/devenv:tizenbase
 
     docker pull nugulinux/devenv:tizenbase
 
-* Branch: [base](https://github.com/nugulinux/docker-devenv-tizen/tree/base)
-* Inherited nugulinux/devenv:bionic
-* Installed files
-  * web-cli_Tizen_Studio_3.6_ubuntu-64.bin
+- Branch: [base](https://github.com/nugulinux/docker-devenv-tizen/tree/base)
+- Inherited nugulinux/devenv:bionic
+- Installed files
+  - web-cli_Tizen_Studio_3.6_ubuntu-64.bin
 
 ### nugulinux/devenv:tizencli
 
     docker pull nugulinux/devenv:tizencli
 
-* Branch: [cli](https://github.com/nugulinux/docker-devenv-tizen/tree/cli)
-* Inherited nugulinux/devenv:tizenbase
-* Installed files
-  * MOBILE-4.0-NativeAppDevelopment-CLI using package-manager
+- Branch: [cli](https://github.com/nugulinux/docker-devenv-tizen/tree/cli)
+- Inherited nugulinux/devenv:tizenbase
+- Installed files
+  - MOBILE-4.0-NativeAppDevelopment-CLI using package-manager
 
 ### nugulinux/devenv:tizen
 
     docker pull nugulinux/devenv:tizen
 
-* Branch: [tizen](https://github.com/nugulinux/docker-devenv-tizen/tree/tizen)
-* Inherited nugulinux/devenv:tizencli
-* Installed files
-  * CMake workaround patches
-  * Emulator cross-compile settings
+- Branch: [tizen](https://github.com/nugulinux/docker-devenv-tizen/tree/tizen)
+- Inherited nugulinux/devenv:tizencli
+- Installed files
+  - CMake workaround patches
+  - Emulator cross-compile settings
 
 ## Build with CMake
 
-### Prepare container
+### Prepare tizen docker
 
 Download the pre-configured docker image
 
@@ -43,26 +57,26 @@ Create and run a container
     docker run -it --rm nugulinux/devenv:tizen
     work@3bc6c74c10bc:~$
 
-### Select target
+### Select build target
 
-Emulator
+For emulator:
 
-    $ source ~/emulator.env
+    source ~/emulator.env
 
-Device
+For device:
 
-    $ source ~/device.env
+    source ~/device.env
 
 ### Build using CMake
 
-    $ cd myproject
-    $ mkdir build && cd build
-    $ cmake .. -DCMAKE_TOOLCHAIN_FILE=~/Toolchain.cmake
-    $ make
+    cd myproject
+    mkdir build && cd build
+    cmake .. -DCMAKE_TOOLCHAIN_FILE=~/Toolchain.cmake
+    make
 
-## Build test with native-project template
+## Build with Tizen native-project template
 
-### Prepare container
+### Prepare tizencli docker
 
 Download the pre-configured docker image
 
@@ -70,9 +84,9 @@ Download the pre-configured docker image
 
 Create and run a container
 
-    docker run -it --rm nugulinux/devenv:tizencli
+    $ docker run -it --rm nugulinux/devenv:tizencli
     work@3bc6c74c10bc:~$
-    
+
 ### Create a sample native project
 
     $ tizen create native-project -p mobile-4.0 -t ServiceApp -n servicetest -- ~/workspace/
@@ -82,8 +96,9 @@ Create and run a container
 
 x86 emulator
 
-    $ tizen build-native -a x86 -c gcc -C Debug -- ~/workspace/servicetest
-```
+    tizen build-native -a x86 -c gcc -C Debug -- ~/workspace/servicetest
+
+```sh
 [PLATFORM] Mobile-4.0
 [ARCHITECTURE] i386
 [COMPILER] gcc-6.2
@@ -109,8 +124,9 @@ Total time: 00:00:00.449
 
 arm
 
-    $ tizen build-native -a arm -c gcc -C Debug -- ~/workspace/servicetest
-```
+    tizen build-native -a arm -c gcc -C Debug -- ~/workspace/servicetest
+
+```sh
 [PLATFORM] Mobile-4.0
 [ARCHITECTURE] armel
 [COMPILER] gcc-6.2
