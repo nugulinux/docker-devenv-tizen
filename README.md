@@ -43,6 +43,16 @@ Create and run a container
     docker run -it --rm nugulinux/devenv:tizen
     work@3bc6c74c10bc:~$
 
+### Select target
+
+Emulator
+
+    $ source ~/emulator.env
+
+Device
+
+    $ source ~/device.env
+
 ### Build using CMake
 
     $ cd myproject
