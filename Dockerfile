@@ -31,4 +31,7 @@ RUN sed -i '/Requires.private: libpcre/d' $EMULATOR_SYSROOT/usr/lib/pkgconfig/gl
 #   $ cmake...
 COPY Toolchain.cmake emulator.env device.env /home/work/
 
+# add dependency library
+COPY emulator $EMULATOR_SYSROOT/
+
 RUN echo alias cmake=\"cmake -DCMAKE_TOOLCHAIN_FILE=/home/work/Toolchain.cmake\" >> ~/.bashrc
