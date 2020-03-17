@@ -33,5 +33,6 @@ COPY Toolchain.cmake emulator.env device.env /home/work/
 
 # add dependency library
 COPY emulator $EMULATOR_SYSROOT/
+COPY device $DEVICE_SYSROOT/
 
 RUN echo alias cmake=\"cmake -DCMAKE_TOOLCHAIN_FILE=/home/work/Toolchain.cmake\" >> ~/.bashrc
