@@ -1,6 +1,6 @@
 libdir=/usr/lib
 includedir=/usr/include/nugu-epd
-version=2.1.10
+version=2.1.11
 
 Name: nugu-epd
 Description: End point detector for NUGU.

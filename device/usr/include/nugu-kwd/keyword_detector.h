@@ -30,8 +30,8 @@ int kwd_get_end_time();
 int kwd_get_detection_time();
 int kwd_get_start_margin();
 
-int kwd_get_power();
-int kwd_get_score();
+float kwd_get_power();
+float kwd_get_score();
 
 #ifdef __cplusplus
 }
