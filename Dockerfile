@@ -1,4 +1,4 @@
-FROM nugulinux/devenv:bionic
+FROM ubuntu:bionic
 LABEL maintainer="webispy@gmail.com" \
       version="0.1" \
       description="NUGUSDK for Tizen development environment"
@@ -14,6 +14,7 @@ RUN apt-get update && apt-get install -y \
         pciutils \
         rpm2cpio \
         sudo \
+        wget \
         zip \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
@@ -32,10 +33,10 @@ ENV PATH=$JAVA_HOME/bin:$PATH
 WORKDIR /home/$USER
 
 # Tizen Studio CLI tool
-RUN wget http://download.tizen.org/sdk/Installer/tizen-studio_3.6/web-cli_Tizen_Studio_3.6_ubuntu-64.bin \
-    && chmod 755 web-cli_Tizen_Studio_3.6_ubuntu-64.bin \
-    && yes | ./web-cli_Tizen_Studio_3.6_ubuntu-64.bin --accept-license \
-    && rm web-cli_Tizen_Studio_3.6_ubuntu-64.bin
+RUN wget http://download.tizen.org/sdk/Installer/tizen-studio_4.0/web-cli_Tizen_Studio_4.0_ubuntu-64.bin \
+    && chmod 755 web-cli_Tizen_Studio_4.0_ubuntu-64.bin \
+    && yes | ./web-cli_Tizen_Studio_4.0_ubuntu-64.bin --accept-license \
+    && rm web-cli_Tizen_Studio_4.0_ubuntu-64.bin
 
 # Add tizen cli path
 ENV PATH=/home/$USER/tizen-studio/tools/ide/bin:$PATH
