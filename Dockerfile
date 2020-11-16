@@ -1,5 +1,11 @@
 FROM nugulinux/devenv:tizencli
 
+RUN sudo apt-get update && sudo apt-get install -y \
+	    cmake \
+	    pkg-config \
+    && sudo apt-get clean \
+    && sudo rm -rf /var/lib/apt/lists/*
+
 # Cross compile configuration for Emulator
 ENV EMULATOR_TOOLCHAIN=/home/work/tizen-studio/tools/i586-linux-gnueabi-gcc-6.2 \
     EMULATOR_SYSROOT=/home/work/tizen-studio/platforms/tizen-4.0/mobile/rootstraps/mobile-4.0-emulator.core \
